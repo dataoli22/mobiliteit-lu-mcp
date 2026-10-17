@@ -38,7 +38,7 @@ existing clients are not given fabricated or silently substituted results.
 
 ## Transports and clients
 
-Requires Node.js 20 or newer.
+Requires Node.js 22 or newer.
 
 ```sh
 npm install
