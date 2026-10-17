@@ -1,0 +1,53 @@
+{
+  "name": "mobiliteit-lu-mcp",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "description": "Unofficial open-source MCP server for Luxembourg public transport data from the mobiliteit.lu API",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "luxembourg",
+    "public-transport",
+    "mobiliteit",
+    "hafas"
+  ],
+  "homepage": "https://github.com/dataoli22/mobiliteit-lu-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dataoli22/mobiliteit-lu-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dataoli22/mobiliteit-lu-mcp/issues"
+  },
+  "bin": {
+    "mobiliteit-lu-mcp": "dist/src/index.js"
+  },
+  "files": [
+    "dist/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    ".env.example",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test \"test/*.test.ts\"",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
