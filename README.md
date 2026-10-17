@@ -14,17 +14,35 @@ data changes; this is near-real-time polling, not an upstream push feed.
 > Luxembourg Ministry of Mobility and Public Works, the Administration des
 > transports publics, or HaCon/HAFAS.
 
-## API access and quotas
+## Get an API key
 
-The HAFAS API endpoint `https://cdt.hafas.de/opendata/apiserver/` requires an
-authorized `accessId`. Obtain API access and confirm the permitted use,
-distribution terms, and request quotas directly with the data provider.
-Open-sourcing this server does not grant API access or rights to redistribute
-the provider's data.
+**You need your own API key before the server can return any data.** This
+server does not contain transport data. It forwards each request to the
+mobiliteit.lu HAFAS open-data API at `https://cdt.hafas.de/opendata/apiserver/`,
+which rejects requests without a valid key (`HTTP 401`). No key is
+included with this project; each deployment should use its own.
 
-Set `MOBILITEIT_API_KEY` in the server process environment. Never commit an API
-key, put it in prompts, or share it in chat. `.env.example` documents supported
-settings but is not loaded automatically.
+Keys are issued by the Administration des transports publics (ATP) on request:
+
+1. Email **opendata-api@atp.etat.lu** and ask for an API key (`accessId`) for
+   the mobiliteit.lu open-data API. Say briefly what you are building and
+   roughly how many requests you expect; see [Quotas](#quotas) below.
+2. Wait for the ATP to reply with your key, its request quota, and the usage
+   terms. Check that those terms allow what you plan to do, especially if you
+   will host the server for other people.
+3. Store the key outside the repository and give it to the server, either in a
+   file referenced by `MOBILITEIT_API_KEY_FILE` (preferred) or in the
+   `MOBILITEIT_API_KEY` environment variable. See
+   [configuration](./docs/configuration.md) and [client setup](./docs/clients.md).
+
+Never commit the key, paste it into prompts or chat, or include it in issue
+reports. `.env.example` documents the supported settings but is not loaded
+automatically. Open-sourcing this server does not grant API access or rights
+to redistribute the provider's data. The ATP publishes the data under
+[CC BY 4.0](https://data.public.lu/en/datasets/api-mobiliteit-lu); credit the
+ATP as the data source in anything you build on it.
+
+## Quotas
 
 Each unique active stop feed is shared by its subscribers and polled once per
 interval. Defaults are a 30-second interval and one active stop feed. One

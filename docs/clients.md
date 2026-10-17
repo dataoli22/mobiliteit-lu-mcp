@@ -4,6 +4,9 @@ The server supports local MCP stdio and remote MCP Streamable HTTP. Client
 configuration varies by product/version; use that client's current MCP
 settings UI or documentation.
 
+Every installation needs its own mobiliteit.lu API key, issued by the
+ATP. See [Get an API key](../README.md#get-an-api-key) before you start.
+
 ## Local stdio
 
 Build the project:
