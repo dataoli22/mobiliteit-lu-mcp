@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { MobiliteitClient } from "./client.js";
 import { startHttpServer } from "./http.js";
-import { createMcpServer } from "./server.js";
+import { createMcpServer } from "./mcp-server.js";
 import { DepartureStreams } from "./streams.js";
 
 type TransportMode = "stdio" | "http" | "both";

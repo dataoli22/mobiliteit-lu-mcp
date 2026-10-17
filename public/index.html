@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobiliteit.lu MCP</title>
+  <meta name="description" content="Unofficial MCP server for Luxembourg public transport data from the mobiliteit.lu API.">
+  <style>
+    :root { --bg: #ffffff; --ink: #1d1d1f; --muted: #5f6368; --line: #e3e3e3; --code: #f4f4f5; color-scheme: light dark; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #111113; --ink: #f2f2f2; --muted: #a1a1aa; --line: #2c2c30; --code: #1c1c20; } }
+    body { margin: 0 auto; max-width: 680px; padding: 32px 16px; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, sans-serif; }
+    code, pre { background: var(--code); border-radius: 6px; font-size: 14px; }
+    code { padding: 1px 5px; }
+    pre { padding: 12px; overflow-x: auto; }
+    .muted { color: var(--muted); }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <h1>Mobiliteit.lu MCP</h1>
+  <p>An unofficial <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> server for Luxembourg public transport data. It is not affiliated with mobiliteit.lu or the public transport administration.</p>
+  <h2>Endpoint</h2>
+  <pre>POST /mcp
+Authorization: Bearer &lt;token from the operator&gt;</pre>
+  <p>Tools: <code>find_nearby_stops</code>, <code>get_departures</code>. This hosted endpoint is stateless, so live departure subscriptions are only available when you self-host the Node server.</p>
+  <p><a href="https://github.com/dataoli22/mobiliteit-lu-mcp">Source, self-hosting guide and API key instructions on GitHub</a></p>
+  <p class="muted">Health check: <a href="/healthz">/healthz</a></p>
+</body>
+</html>

@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Stateless Vercel endpoint (`api/mcp.ts`, `vercel.json`) serving the lookup
+  tools with bearer-token auth. It refuses requests until a token is set.
+
+### Changed
+
+- Renamed `src/server.ts` to `src/mcp-server.ts`, because Vercel treats
+  `src/server.ts` as a server entry point.
+
 ### Fixed
 
 - `get_departures` and departure feeds sent `rtMode=FULL`, which the

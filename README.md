@@ -66,7 +66,9 @@ npm run build
 ```
 
 For a hosted endpoint, see the step-by-step
-[VPS deployment guide](./docs/hosting.md). It deploys the app with Docker
+[VPS deployment guide](./docs/hosting.md), or the
+[serverless Vercel option](./docs/hosting.md#serverless-option-vercel) for a
+tools-only endpoint without live subscriptions. It deploys the app with Docker
 Compose and Caddy-managed HTTPS. This is the recommended route for a trusted
 pilot; the current HTTP authentication is one shared bearer token, not
 per-user OAuth.

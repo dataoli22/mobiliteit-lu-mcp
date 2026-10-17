@@ -18,18 +18,15 @@ export type ServerDependencies = {
   streams: DepartureStreams;
 };
 
-export function createMcpServer({ client, streams }: ServerDependencies): {
-  server: McpServer;
-  cleanup: () => void;
-} {
-  const server = new McpServer(
-    { name: SERVER_NAME, version: SERVER_VERSION },
-    { capabilities: { resources: { subscribe: true } } },
-  );
-  // Keyed by resource URI; MCP subscriptions are idempotent, so one
-  // unsubscribe cancels however many times the URI was subscribed.
-  const subscriptions = new Map<string, () => void>();
-
+/**
+ * Registers the stateless lookup tools. Shared by the long-running server and
+ * the serverless endpoint; getClient may throw when no API key is configured,
+ * which the SDK reports to the caller as a tool error.
+ */
+export function registerTools(
+  server: McpServer,
+  getClient: () => MobiliteitClient,
+): void {
   server.registerTool(
     "find_nearby_stops",
     {
@@ -45,7 +42,7 @@ export function createMcpServer({ client, streams }: ServerDependencies): {
       },
     },
     async (options) => {
-      const result = await client.findNearbyStops(options);
+      const result = await getClient().findNearbyStops(options);
       return {
         content: [{ type: "text", text: JSON.stringify(result) }],
       };
@@ -75,12 +72,27 @@ export function createMcpServer({ client, streams }: ServerDependencies): {
       },
     },
     async (options) => {
-      const result = await client.getDepartures(options);
+      const result = await getClient().getDepartures(options);
       return {
         content: [{ type: "text", text: JSON.stringify(result) }],
       };
     },
   );
+}
+
+export function createMcpServer({ client, streams }: ServerDependencies): {
+  server: McpServer;
+  cleanup: () => void;
+} {
+  const server = new McpServer(
+    { name: SERVER_NAME, version: SERVER_VERSION },
+    { capabilities: { resources: { subscribe: true } } },
+  );
+  // Keyed by resource URI; MCP subscriptions are idempotent, so one
+  // unsubscribe cancels however many times the URI was subscribed.
+  const subscriptions = new Map<string, () => void>();
+
+  registerTools(server, () => client);
 
   server.registerResource(
     "stop_departures",

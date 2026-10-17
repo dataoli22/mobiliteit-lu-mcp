@@ -201,6 +201,29 @@ An alternative is to publish the source on GitHub and the container image in
 GitHub Container Registry (GHCR), then run that image on an approved VPS or
 container platform. GHCR distributes the image; it does not run the service.
 
+## Serverless option: Vercel
+
+The repository also contains a stateless endpoint for Vercel at
+`api/mcp.ts`. Import the GitHub repository as a Vercel project; `vercel.json`
+configures the build, and the endpoint is served at `https://<project>.vercel.app/mcp`.
+
+Set these environment variables in the Vercel project settings, then redeploy:
+
+| Variable | Required | Meaning |
+| --- | --- | --- |
+| `MCP_HTTP_BEARER_TOKEN` | Yes | Shared bearer token clients must send. Until it is set, the endpoint answers `503` to every MCP request. |
+| `MOBILITEIT_API_KEY` | For data | The ATP-issued key. Without it, tools return a "no API key configured" error. |
+| `MOBILITEIT_MAX_REQUESTS_PER_MINUTE` | No | Upstream request cap per running instance (default `60`). |
+
+Serverless differences from the Docker deployment:
+
+- Only the tools `find_nearby_stops` and `get_departures` are served. The
+  live departure resource and its subscriptions need a long-running process,
+  so use the Docker deployment if you need them.
+- Requests are stateless (no MCP sessions); `GET` and `DELETE` on `/mcp`
+  return `405`.
+- The request cap applies per function instance, not globally.
+
 ## References
 
 - [Docker Engine installation](https://docs.docker.com/engine/install/)

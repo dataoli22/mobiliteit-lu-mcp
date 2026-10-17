@@ -6,7 +6,7 @@ import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { ResourceUpdatedNotificationSchema } from "@modelcontextprotocol/sdk/types.js";
 import { MobiliteitClient } from "../src/client.js";
 import { startHttpServer } from "../src/http.js";
-import { createMcpServer } from "../src/server.js";
+import { createMcpServer } from "../src/mcp-server.js";
 import { DepartureStreams } from "../src/streams.js";
 
 function departureClient(fetchImplementation: typeof fetch): MobiliteitClient {

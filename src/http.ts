@@ -1,4 +1,4 @@
-import { randomUUID, timingSafeEqual } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import {
   createServer,
   type IncomingMessage,
@@ -6,8 +6,9 @@ import {
   type ServerResponse,
 } from "node:http";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { isAuthorized } from "./auth.js";
 import type { MobiliteitClient } from "./client.js";
-import { createMcpServer } from "./server.js";
+import { createMcpServer } from "./mcp-server.js";
 import { DepartureStreams } from "./streams.js";
 
 const MCP_PATH = "/mcp";
@@ -212,20 +213,6 @@ export async function startHttpServer(
     });
   });
   return { server: httpServer, close };
-}
-
-function isAuthorized(
-  authorization: string | undefined,
-  expectedToken: string,
-): boolean {
-  if (!authorization?.startsWith("Bearer ")) {
-    return false;
-  }
-  const supplied = Buffer.from(authorization.slice("Bearer ".length));
-  const expected = Buffer.from(expectedToken);
-  return (
-    supplied.length === expected.length && timingSafeEqual(supplied, expected)
-  );
 }
 
 function isAllowedHost(

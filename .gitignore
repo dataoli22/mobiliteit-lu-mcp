@@ -5,3 +5,4 @@ dist/
 !.env.example
 secrets/
 npm-debug.log*
+.vercel/
