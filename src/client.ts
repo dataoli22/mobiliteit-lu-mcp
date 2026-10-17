@@ -38,6 +38,9 @@ export class MobiliteitClient {
     if (!apiKey.trim()) {
       throw new Error("MOBILITEIT_API_KEY is required");
     }
+    if (apiKey.length > 128) {
+      throw new Error("MOBILITEIT_API_KEY must not be longer than 128 characters");
+    }
     this.baseUrl = options.baseUrl ?? API_BASE_URL;
     this.maxRequestsPerMinute = options.maxRequestsPerMinute ?? 60;
     if (
@@ -66,7 +69,8 @@ export class MobiliteitClient {
       duration: options.durationMinutes,
       maxJourneys: options.limit,
       lang: options.language,
-      rtMode: "FULL",
+      // The WADL allows only OFF and SERVER_DEFAULT; the default includes real-time data.
+      rtMode: "SERVER_DEFAULT",
     });
   }
 

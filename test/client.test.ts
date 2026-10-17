@@ -11,6 +11,10 @@ function response(status: number, data: unknown): Response {
 
 test("requires an API key", () => {
   assert.throws(() => new MobiliteitClient("  "), /MOBILITEIT_API_KEY/);
+  assert.throws(
+    () => new MobiliteitClient("k".repeat(129)),
+    /not be longer than 128/,
+  );
 });
 
 test("nearby stops request uses documented endpoint and bounded options", async () => {
@@ -62,7 +66,7 @@ test("departures request asks for real-time results and applies date and time", 
   assert.equal(requestedUrl?.searchParams.get("time"), "12:30");
   assert.equal(requestedUrl?.searchParams.get("duration"), "30");
   assert.equal(requestedUrl?.searchParams.get("maxJourneys"), "15");
-  assert.equal(requestedUrl?.searchParams.get("rtMode"), "FULL");
+  assert.equal(requestedUrl?.searchParams.get("rtMode"), "SERVER_DEFAULT");
 });
 
 test("API errors report status without exposing the API key or response body", async () => {

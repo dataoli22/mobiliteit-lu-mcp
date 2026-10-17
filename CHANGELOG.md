@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- `get_departures` and departure feeds sent `rtMode=FULL`, which the
+  departureBoard API does not accept; they now send `SERVER_DEFAULT`, the
+  documented mode that includes real-time data.
+- An API key longer than the documented 128-character limit is now rejected
+  at startup.
+
 ## [0.1.0]
 
 Initial public release.
