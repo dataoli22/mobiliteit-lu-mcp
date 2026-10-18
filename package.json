@@ -1,6 +1,6 @@
 {
   "name": "mobiliteit-lu-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "description": "Unofficial open-source MCP server for Luxembourg public transport data from the mobiliteit.lu API",
   "keywords": [

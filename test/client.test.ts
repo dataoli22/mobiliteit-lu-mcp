@@ -44,6 +44,21 @@ test("nearby stops request uses documented endpoint and bounded options", async 
   assert.equal(requestedUrl?.searchParams.get("format"), "json");
 });
 
+test("stop search queries location.name for stops only", async () => {
+  let requestedUrl: URL | undefined;
+  const client = new MobiliteitClient("secret-test-key", async (input) => {
+    requestedUrl = new URL(String(input));
+    return response(200, { stopLocationOrCoordLocation: [] });
+  });
+
+  await client.searchStops({ query: "Gare de Luxembourg", limit: 5, language: "en" });
+
+  assert.equal(requestedUrl?.pathname, "/opendata/apiserver/location.name");
+  assert.equal(requestedUrl?.searchParams.get("input"), "Gare de Luxembourg");
+  assert.equal(requestedUrl?.searchParams.get("type"), "S");
+  assert.equal(requestedUrl?.searchParams.get("maxNo"), "5");
+});
+
 test("departures request asks for real-time results and applies date and time", async () => {
   let requestedUrl: URL | undefined;
   const client = new MobiliteitClient("secret-test-key", async (input) => {

@@ -92,6 +92,7 @@ depends on the MCP host used with the model.
 ## MCP tools and resources
 
 - `find_nearby_stops`: look up stops by WGS84 coordinates.
+- `search_stops`: look up stops by name, e.g. "Gare de Luxembourg".
 - `get_departures`: request departures for a stop, including real-time data
   where supplied by the API.
 - `mobiliteit://stops/{stopId}/departures`: a resource clients can read and

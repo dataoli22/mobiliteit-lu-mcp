@@ -50,6 +50,26 @@ export function registerTools(
   );
 
   server.registerTool(
+    "search_stops",
+    {
+      title: "Search stops by name",
+      description:
+        "Find Luxembourg public transport stops by name, e.g. 'Gare de Luxembourg' or 'Belval Université'. Use the returned stop id with get_departures.",
+      inputSchema: {
+        query: z.string().trim().min(2).max(100).describe("Stop or place name"),
+        limit: z.number().int().min(1).max(50).default(5),
+        language: z.enum(["de", "en", "fr"]).default("fr"),
+      },
+    },
+    async (options) => {
+      const result = await getClient().searchStops(options);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result) }],
+      };
+    },
+  );
+
+  server.registerTool(
     "get_departures",
     {
       title: "Get departures from a stop",

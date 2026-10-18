@@ -10,6 +10,12 @@ export type NearbyStopsOptions = {
   language: string;
 };
 
+export type StopSearchOptions = {
+  query: string;
+  limit: number;
+  language: string;
+};
+
 export type DepartureOptions = {
   stopId: string;
   date?: string;
@@ -56,6 +62,15 @@ export class MobiliteitClient {
       originCoordLat: options.latitude,
       originCoordLong: options.longitude,
       r: options.radiusMeters,
+      maxNo: options.limit,
+      lang: options.language,
+    });
+  }
+
+  searchStops(options: StopSearchOptions): Promise<unknown> {
+    return this.request("location.name", {
+      input: options.query,
+      type: "S",
       maxNo: options.limit,
       lang: options.language,
     });
