@@ -54,7 +54,7 @@ test("serverless endpoint lists the tools and reports a missing API key as a too
   const client = await connect(t);
 
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map((tool) => tool.name).sort(), ["find_nearby_stops", "get_departures", "search_stops"]);
+  assert.deepEqual(tools.map((tool) => tool.name).sort(), ["find_nearby_stops", "get_departures"]);
 
   const result = await client.callTool({
     name: "find_nearby_stops",

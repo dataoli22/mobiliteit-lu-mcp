@@ -27,7 +27,7 @@ test("stdio server starts and advertises its MCP tools", async (t) => {
 
   assert.deepEqual(
     tools.map(({ name }) => name).sort(),
-    ["find_nearby_stops", "get_departures", "search_stops"],
+    ["find_nearby_stops", "get_departures"],
   );
   assert.equal(
     resourceTemplates[0].uriTemplate,
@@ -58,5 +58,5 @@ test("stdio server accepts an API key from a mounted secret file", async (t) => 
 
   await client.connect(transport);
   const { tools } = await client.listTools();
-  assert.equal(tools.length, 3);
+  assert.equal(tools.length, 2);
 });

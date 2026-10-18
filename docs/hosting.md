@@ -217,7 +217,7 @@ Set these environment variables in the Vercel project settings, then redeploy:
 
 Serverless differences from the Docker deployment:
 
-- Only the tools `search_stops`, `find_nearby_stops` and `get_departures` are served. The
+- Only the tools `find_nearby_stops` and `get_departures` are served. The
   live departure resource and its subscriptions need a long-running process,
   so use the Docker deployment if you need them.
 - Requests are stateless (no MCP sessions); `GET` and `DELETE` on `/mcp`

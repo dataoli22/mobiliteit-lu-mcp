@@ -6,11 +6,19 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.1]
+
+### Removed
+
+- `search_stops` (added in 0.2.0). The mobiliteit.lu open-data server does
+  not provide HAFAS `location.name` (it answers 404, unlike its documented
+  endpoints), so the tool could never return data. Look stops up by
+  coordinates with `find_nearby_stops` instead.
+
 ## [0.2.0]
 
 ### Added
 
-- `search_stops` tool: find stops by name through HAFAS `location.name`.
 - Stateless Vercel endpoint (`api/mcp.ts`, `vercel.json`) serving the lookup
   tools with bearer-token auth. It refuses requests until a token is set.
 
